@@ -1,0 +1,15 @@
+{% extends "base.html"%}
+{% block title %} All Movies {% endblock %}
+{% block content%}
+<h1> All Movies</h1>
+<ul>
+    <li><a href="/">Go back home</a></li>
+    <li><a href="/all-users">View all users</a></li>
+</ul>
+    {%for movie in movies%}
+        <ul>
+            <li> <div><b><a href="/movie_detail/{{movie.movie_id}}" >{{movie.title}}: </a></b>{{movie.overview}}</div></li>
+        </ul>
+       
+    {%endfor%}
+{% endblock %}

@@ -1,0 +1,18 @@
+{%extends "base.html" %}
+
+{% block title %} All Users {% endblock %}
+{% block content%}
+<h1> All Users</h1>
+
+<ul>
+    <li><a href="/">Go back home</a></li>
+    <li><a href="/all-users">View all users</a></li>
+</ul>
+    {%for user in users%}
+        <ul>
+            <li> <div>{{user.email}}:</div></li>
+        </ul>
+       
+    {%endfor%}
+
+{% endblock %}
