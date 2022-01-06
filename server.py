@@ -15,20 +15,35 @@ def homepage():
     """""Homepage Route"""
     return render_template('homepage.html')
 
-@app.route('/register', methods=['POST'])
+@app.route('/users', methods=['POST'])
 def register_user():
     email = request.form['email']
     password = request.form['password']
 
-    user = User.query.filter(User.email == email).first()
+    user = crud.get_user_by_email(email)
     if user:
-        return 'A user already exists with that email.'
+        flash(f'{user.email} already exists.')
+        # if (email == ) 
     else:
-        new_user = User(email=email, password=password)
-        db.session.add(new_user)
-        db.session.commit(new_user)
+        crud.create_user(email, password)
+        flash("Account created! Please log in")
 
-    return redirect('/login-form')
+    return redirect('/')
+
+@app.route('/', methods=['POST'])
+def login():
+    email = request.form['email']
+    password = request.form['password']
+
+    user = crud.get_user_by_email(email)
+
+    if password == user.password:
+         flash("Logged in!")
+        
+    else: 
+         flash("Incorrect password")
+    
+    return redirect('/')
 
 @app.route('/all-movies')
 def view_all_movies():
@@ -44,10 +59,12 @@ def display_all_users():
     users = crud.get_users()
     return render_template('all_users.html', users=users)
 
-@app.route('/movie_detail/<id>')
+@app.route('/movie_detail/<id>', methods=['GET'])
 def show_movie_detail(id):
     movie = crud.get_movie_by_id(id)
     print('MOVIE',movie)
+    user_score = request.form.get('score')
+    print(user_score)
 
     return render_template('movie_detail.html', movie=movie)
 

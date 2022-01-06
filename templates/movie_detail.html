@@ -2,6 +2,22 @@
 {% block title %} Movie Detail {% endblock %}
 {% block content %}
     <div> {{movie.title}}</div>
+    <form action='/movie_detail/{{movie.movie_id}}'>
+    <fieldset>
+        <h2>Rate this movie</h2>
+
+        <select name="score" id="score">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        <input type="submit" value="Submit">
+
+    </fieldset>
+    </form>
     <img src={{movie.poster_path}} width='50%'>
     <span>{{movie.release_date}}</span>
     <p> {{movie.overview}}</p>

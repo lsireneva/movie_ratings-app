@@ -6,6 +6,11 @@ def get_users():
     
     return User.query.all()
 
+def get_user_by_email(email):
+    """Return a user by email"""
+    return User.query.filter(User.email==email).first()
+
+    
 def create_user(email, password):
     """Create and return new user"""
     user = User(email=email, password=password)
